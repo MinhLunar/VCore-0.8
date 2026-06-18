@@ -64,13 +64,17 @@ public class ClickGui extends Module {
     public void onSetting(EventSetting e) {
         try {
             if (e.getSetting() == settingFontScale)
-                FontRenderers.sf_medium_mini = FontRenderers.create(settingFontScale.getValue(), "sf_medium");
+                FontRenderers.sf_medium_mini = FontRenderers.create(settingFontScale.getValue().intValue(), "sf_medium");
 
             if (e.getSetting() == modulesFontScale)
-                FontRenderers.sf_medium_modules = FontRenderers.create(modulesFontScale.getValue(), "sf_medium");
+                FontRenderers.sf_medium_modules = FontRenderers.create(modulesFontScale.getValue().intValue(), "sf_medium");
 
-            if (e.getSetting() == image)
-                ClickGUI.getClickGui().imageAnimation.reset();
+            if (e.getSetting() == image) {
+                ClickGUI gui = ClickGUI.getClickGui();
+                if (gui != null && gui.imageAnimation != null) {
+                    gui.imageAnimation.reset();
+                }
+            }
         } catch (Exception ignored) {
         }
     }
